@@ -1,0 +1,12 @@
+.card{  
+  background-color: white;
+  width: 224px;
+  height: 310px;
+}
+
+
+hr {
+  border: none;
+  height: .5px;
+  background-color: rgb(226, 226, 226);
+}
