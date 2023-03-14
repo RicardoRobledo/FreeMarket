@@ -1,18 +1,12 @@
 import './css/App.css';
 
-import Menu from './components/Menu';
-import Card from './components/Card';
-
-import { Fragment } from 'react';
+import Home from './pages/Home';
 
 
 function App() {
 
   return (
-    <Fragment>
-      <Menu/>
-      <Card/>
-    </Fragment>
+    <Home/>
   );
 
 }
