@@ -9,7 +9,7 @@ export default class CategoriesDropdownMenu extends React.Component {
     return (
       <>
 			  <nav> 
-				  <li><a href="">Categorias</a>
+				  <li><a href="">Categories</a>
 					  <ul>
 						  <li><a href="">Vehicles</a></li>
 						  <li><a href="">Supermarket</a></li>

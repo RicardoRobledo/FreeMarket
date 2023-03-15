@@ -9,7 +9,7 @@ export default class Home extends React.Component {
   render(){
     return (
       <Fragment>
-        <Menu/>
+        <Menu showSearch={true}/>
         <Card/>
       </Fragment>
     );
