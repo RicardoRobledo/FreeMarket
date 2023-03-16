@@ -14,7 +14,7 @@
   display: flex;
   justify-content: space-between;
   flex-direction: row;
-  align-items: center;
+  background-color: none;
 }
 
 
@@ -24,11 +24,11 @@
 
 
 .search-input{
-  background-color: white;
-  border-radius: 40px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 40px 0 0 40px;
   padding-left: 40px;
-  padding-right: 340px;
-  padding-block: 10px;
+  padding-right: 300px;
+  padding-block: 15px;
   border: 0px;
 }
 
@@ -38,11 +38,11 @@
   display: flex;
   align-items: center;
   height: 10px;
-  background-color: white;
+  background-color: rgb(255, 255, 255);
+  padding-left: 40px;
   color: rgb(0, 0, 0);
-  padding: 20px 20px;
-  border-radius: 40px;
-  margin-left: 5px;
+  padding: 22.5px 23px;
+  border-radius: 0 40px 40px 0;
 }
 
 
