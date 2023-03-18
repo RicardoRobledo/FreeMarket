@@ -1,0 +1,14 @@
+.container-404 {
+  display: flex;
+  justify-content: center;
+  margin-top: 120px;
+}
+
+
+.container-message-404 {
+  color: royalblue;
+  background-color: white;
+  border-radius: 10px;
+  padding: 100px;
+  text-align: center;
+}

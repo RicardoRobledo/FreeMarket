@@ -19,7 +19,6 @@ export default class CategoriesDropdownMenu extends React.Component {
               <li><a href="">Fashion</a></li>
               <li><a href="">Sports and fitness</a></li>
 					    <li><a href="">Tools</a></li>
-              <li><a href="">Construction</a></li>
             </ul>
 				  </li>
         </nav>
