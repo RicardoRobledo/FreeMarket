@@ -1,0 +1,41 @@
+.redirect-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  position: relative; 
+}
+
+
+.redirect-form {
+  background-color: white;
+  border-radius: 10px;
+  padding: 60px;
+  display: flex;
+  font-weight: bold;
+  flex-direction: column;
+}
+
+
+.redirect-form h2 {
+  text-align: center;
+}
+
+
+.create-account-button {
+  background-color: rgb(52, 131, 250);
+  border-radius: 7px;
+  text-align: center;
+  padding: 15px 50px 15px 50px;
+  margin-top: 20px;
+  text-decoration: none;
+  color: white;
+}
+
+
+.login-button {
+  border-radius: 7px;
+  text-decoration: none;
+  text-align: center;
+  margin-top: 20px;
+  color: rgb(52, 131, 250);
+}
