@@ -22,7 +22,7 @@ export default class DetailProduct extends React.Component{
             <h3>Description</h3>
             <p>Guitarra buena con un gran acabado y sonido</p>
           </div>
-        </div>            
+        </div>
       </>
     );
   }

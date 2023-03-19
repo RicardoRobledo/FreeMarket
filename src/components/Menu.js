@@ -2,6 +2,8 @@ import '../css/Header.css'
 
 import React from 'react';
 
+import { Link } from "react-router-dom";
+
 import { FaShopify, FaSearch, FaSearchLocation, FaCartPlus } from "react-icons/fa";
 import CategoriesDropdownMenu from './CategoriesDropdownMenu';
 
@@ -16,7 +18,7 @@ export default class Menu extends React.Component {
       <div>
         <div className="container">
           {/*Icon*/}
-          <FaShopify size={40} />
+          <Link to="/" style={{color: 'black'}}><FaShopify size={40}/></Link>
 
           {showSearch ? <div>
             {/*Search bar*/}
@@ -47,8 +49,8 @@ export default class Menu extends React.Component {
           </ul>
 
           <ul>
-            <h4>Sign in</h4>
-            <h4>Log in</h4>
+          <Link to="/create-account/" style={{ textDecoration: 'none' }}><h4>Sign in</h4></Link>
+            <Link to="/login/" style={{ textDecoration: 'none' }}><h4>Log in</h4></Link>
             <h4>My sales</h4>
             <FaCartPlus className="cart"/>
           </ul>

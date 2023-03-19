@@ -31,7 +31,7 @@ export default class Login extends React.Component {
             <li><label>Username</label></li>
             <li><input className="login-input" type="text field"></input></li>
             <li><label>Password</label></li>
-            <li><input className="login-input" type="text field"></input></li>
+            <li><input className="login-input" type="password"></input></li>
             <li>
               <div className="buttons">
                 <button className="button-login-form">Log in</button>

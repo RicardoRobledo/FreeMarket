@@ -68,6 +68,12 @@ ul{
 
 ul h4{
   padding: 10px;
+  color: black;
+}
+
+
+h4:hover {
+  color:rgb(117, 103, 170);
 }
 
 
