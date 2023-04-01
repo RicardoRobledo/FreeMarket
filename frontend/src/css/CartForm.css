@@ -28,7 +28,12 @@
   padding: 15px 50px 15px 50px;
   margin-top: 20px;
   text-decoration: none;
+}
+
+
+.create-account-font {
   color: white;
+  font-weight: bold;
 }
 
 
@@ -36,5 +41,10 @@
   border-radius: 7px;
   text-decoration: none;
   margin-top: 20px;
+}
+
+
+.login-font {
   color: rgb(52, 131, 250);
+  font-weight: bold;
 }
