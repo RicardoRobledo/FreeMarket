@@ -12,7 +12,7 @@ export default class DetailProduct extends React.Component{
     return (
       <>
         <Menu showSearch={true}/> 
-        <div className="detail-product-container">
+        <div className="container col-12 mb-5 mt-5">
           <div className="detail-product">
             <div className="detail-container">
               <img src="https://http2.mlstatic.com/D_NQ_NP_967424-CBT52437292155_112022-O.webp"/>

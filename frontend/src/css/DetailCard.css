@@ -1,25 +1,12 @@
-.card-detail-container{
-  border:1px solid rgb(206, 206, 206);
-  padding: 20px;
-  border-radius: 10px;
-  margin-left: 200px;
+.buttons-detail-container {
+  list-style: none;
   display: flex;
   flex-direction: column;
 }
 
 
-.detail-product img{
-  margin-left: 150px;
-}
-
-
-.card-detail-container h2{
-  font-weight: 500; 
-}
-
-
-.card-detail-container h1{
-  font-weight: lighter; 
+.buttons-detail-container li{
+  margin-top: 15px;
 }
 
 
