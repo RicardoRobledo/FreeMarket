@@ -2,7 +2,7 @@ import '../css/DetailProduct.css';
 
 import React from 'react';
 import DetailCard from '../components/DetailCard'
-
+import Footer from '../components/Footer';
 import Menu from '../components/Menu';
 
 
@@ -23,6 +23,7 @@ export default class DetailProduct extends React.Component{
             <p>Guitarra buena con un gran acabado y sonido</p>
           </div>
         </div>
+        <Footer/>
       </>
     );
   }
