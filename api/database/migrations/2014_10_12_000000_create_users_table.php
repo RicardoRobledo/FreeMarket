@@ -17,11 +17,12 @@ return new class extends Migration
             $table->string('middle_name', 20);
             $table->string('last_name', 20);
             $table->string('username', 20);
-            $table->string('password', 20);
+            $table->string('password', 50);
             $table->string('email')->unique();
             $table->string('country', 20);
             $table->string('city', 20);
             $table->string('state', 20);
+            $table->string('neighborhood', 50);
             $table->string('street', 20);
             $table->integer('number');
             $table->string('postal_code', 5);

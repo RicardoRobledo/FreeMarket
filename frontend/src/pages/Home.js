@@ -5,11 +5,13 @@ import Carousel from '../components/Carousel'
 import Footer from '../components/Footer';
 
 import React, { Fragment } from 'react';
+import axios from 'axios';
 
 
 export default class Home extends React.Component {
 
   render(){
+
     return (
       <Fragment>
         <Menu showSearch={true}/>
