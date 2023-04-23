@@ -3,23 +3,24 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Models\Shopping;
+use App\Models\Product;
 
-class ProductController extends Controller
+class ShoppingController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return Product::all();
+        return Shopping::all();
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Request $request)
+    public function create()
     {
         //
     }
@@ -38,30 +39,27 @@ class ProductController extends Controller
     public function show(Request $request)
     {
         $data_gotten = $request->query();
-        $products = Product::where('name', $data_gotten['name']);
-        $data = null;
+        $shopping = Shopping::where('user_id', $data_gotten['user_id'])->get();
         $status = null;
+        $data = null;
+        $user_shopping = array();
 
-        if($products->exists())
-        {
-            $data = json_encode([
-                'message' => 'success',
-                'product' => $products->first()
-            ]);
-
-            $status = 200;
-            
-            return response($data, $status);
+        foreach($shopping as $e){
+            array_push($user_shopping, Product::where('id', $e->product_id)->first());
         }
-
+ 
+        $status = 200;
         $data = json_encode([
-            'message' => 'product not found',
+            'message' => 'success',
+            'shopping' => $user_shopping
         ]);
 
-        $status = 404;
-
         return response($data, $status);
+    }
 
+    public function show2(Request $request)
+    {
+        $data_gotten = $request->query();
     }
 
     /**
@@ -83,7 +81,7 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request)
+    public function destroy(string $id)
     {
         //
     }

@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { useForm } from "react-hook-form";
+import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
 import ReCAPTCHA from "react-google-recaptcha";
 import axios from 'axios';
@@ -11,17 +12,22 @@ export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [enterprise, setEnterprise] = useState(false);
+  const navigate = useNavigate();
   
   const onSubmit = async () => {
     //const token = captchaRef.current.getValue();
     //captchaRef.current.reset();
-
-    let response = await axios.get(`http://127.0.0.1:8000/api/login?username=${username}&password=${password}&enterprise=${enterprise}`)
+    await axios.get(`http://127.0.0.1:8000/api/authentication/login?username=${username}&password=${password}&enterprise=${enterprise}`)
     .then(function (response) {
-      return response.data
+
+      if(response.status==200){
+        let data = response.data;
+        localStorage.setItem('username', data['username']);
+        localStorage.setItem('token', data['token']);
+        navigate('/'); // go to home
+      }
+
     })
-    
-    localStorage.setItem('username', response['username']);
 
     setUsername("");
     setPassword("");

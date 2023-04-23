@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('middle_name', 20);
             $table->string('last_name', 20);
             $table->string('username', 20);
-            $table->string('password', 50);
+            $table->string('password', 100);
             $table->string('email')->unique();
             $table->string('country', 20);
             $table->string('city', 20);

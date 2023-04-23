@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Laravel\Sanctum\PersonalAccessToken;
+use Illuminate\Support\Facades\Hash;
 
 class AuthenticationController extends Controller
 {
@@ -34,16 +35,18 @@ class AuthenticationController extends Controller
         $user->state = $body['state'];
         $user->street = $body['street'];
         $user->number = $body['number'];
-        $user->password = $body['password'];
+        $user->password = Hash::make($body['password']);
         $user->email = $body['email'];
         $user->email_verified_at = now();
         $user->postal_code = $body['postal_code'];
         $user->neighborhood = $body['neighborhood'];
         $user->save();
 
-        return json_encode([
+        $data = json_encode([
             'message' => 'success'
         ]);
+
+        return response($data, 200);
     }
 
     /**
@@ -59,24 +62,39 @@ class AuthenticationController extends Controller
      */
     public function show(Request $request)
     {
-        $data = $request->query();
-        $user = User::where('username', $data['username'])->
-            where('password', $data['password']);
-        
-        $exists = $user->exists();
+        $data_gotten = $request->query();
+        $user = User::where('username', $data_gotten['username']);
+        $data = null;
 
-        if($exists){
-            $response = json_encode([
-                'username' => $data['username'], 
-                'token' => $user->first()->
-                    createToken(env('API_KEY'))->plainTextToken,
-                'message' => 'success'
+        if(!($user->exists()))
+        {
+            $data = json_encode([
+                'detail' => 'User does not exist',
+                'message' => 'error'
             ]);
 
-            return $response;
-        }else{
-            return $exists;
+            return response($data, 404);
         }
+
+        $is_password_hashed = Hash::check($data_gotten['password'], $user->first()->password);
+        
+        if(!$is_password_hashed)
+        {
+            $data = json_encode([
+                'detail' => 'Password does not exist',
+                'message' => 'error'
+            ]);
+
+            return response($data, 404);
+        }
+
+        $data = json_encode([
+            'username' => $data_gotten['username'], 
+            'token' => $user->first()->createToken(env('API_KEY'))->plainTextToken,
+            'message' => 'success'
+        ]);
+
+        return response($data, 200);
     }
 
     /**
@@ -101,11 +119,29 @@ class AuthenticationController extends Controller
     public function destroy(Request $request)
     {
         $data = $request->query();
+        $status = null;
         
         $user = User::where('username', $data['username'])->first();
         $token = PersonalAccessToken::findToken($request->bearerToken());
-        $user->tokens()->where('id', $token->id)->delete();
-        
-        return 'logout';
+
+        if($token)
+        {
+            $user->tokens()->where('id', $token->id)->delete();
+            
+            $data = json_encode([
+                'message' => 'success',
+            ]);
+
+            $status = 200;
+        }else
+        {
+            $data = json_encode([
+                'message' => 'nonexistent token',
+            ]);
+
+            $status = 404;
+        }
+
+        return response($data, $status);
     }
 }
