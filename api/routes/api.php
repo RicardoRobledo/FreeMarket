@@ -22,9 +22,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });*/
 
 Route::prefix('authentication')->group(function () {
-    Route::get('login', [AuthenticationController::class, 'show']);
-    Route::get('logout', [AuthenticationController::class, 'destroy']);
-    Route::post('register', [AuthenticationController::class, 'create']);
+    Route::middleware('web')->get('login', [AuthenticationController::class, 'show']);
+    Route::middleware('web')->get('logout', [AuthenticationController::class, 'destroy']);
+    Route::middleware('web')->get('csrf-token', [AuthenticationController::class, 'show_token']);
+    Route::middleware('web')->post('register-user', [AuthenticationController::class, 'create']);
 });
 
 Route::prefix('products')->group(function () {
@@ -32,8 +33,10 @@ Route::prefix('products')->group(function () {
     Route::get('retrieve-product', [ProductController::class, 'show']);
 });
 
-Route::prefix('shopping')->group(function () {
+Route::middleware('web')->prefix('shopping')->group(function () {
     Route::get('retrieve-shopping', [ShoppingController::class, 'index']);
-    Route::get('obtain-shopping', [ShoppingController::class, 'show2']);
+    Route::get('obtain-single-shopping', [ShoppingController::class, 'show2']);
     Route::get('obtain-user-shopping', [ShoppingController::class, 'show']);
+    Route::post('create-shopping', [ShoppingController::class, 'create']);
+    Route::delete('delete-shopping/{id}', [ShoppingController::class, 'destroy']);
 });

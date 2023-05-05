@@ -25,6 +25,22 @@ class AuthenticationController extends Controller
     {
         $body = $request->all();
 
+        if(User::where('username', $body['username'])->exists()){
+            $data = json_encode([
+                'message' => 'username in use'
+            ]);
+    
+            return response($data, 404);
+        }
+        
+        if(User::where('email', $body['email'])->exists()){
+            $data = json_encode([
+                'message' => 'email in use'
+            ]);
+    
+            return response($data, 404);
+        }
+
         $user = new User;
         $user->name = $body['name'];
         $user->middle_name = $body['middle_name'];
@@ -88,12 +104,21 @@ class AuthenticationController extends Controller
             return response($data, 404);
         }
 
+        session()->put('authentication', true);
+
         $data = json_encode([
             'username' => $data_gotten['username'], 
             'token' => $user->first()->createToken(env('API_KEY'))->plainTextToken,
+            'session' => session()->get('authentication'),
             'message' => 'success'
         ]);
 
+        return response($data, 200);
+    }
+
+    public function show_token(Request $request)
+    {
+        $data = json_encode(['csrf_token'=>csrf_token()]);
         return response($data, 200);
     }
 
@@ -128,8 +153,11 @@ class AuthenticationController extends Controller
         {
             $user->tokens()->where('id', $token->id)->delete();
             
+            session()->forget('authentication');
+
             $data = json_encode([
                 'message' => 'success',
+                'session' => session()->get('authentication')
             ]);
 
             $status = 200;

@@ -1,9 +1,10 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useContext } from 'react';
 import { useForm } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
 import ReCAPTCHA from "react-google-recaptcha";
 import axios from 'axios';
+import {PathContext} from '../App';
 
 
 export default function Login() {
@@ -12,23 +13,30 @@ export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [enterprise, setEnterprise] = useState(false);
+  const [error, setError] = useState(false);
   const navigate = useNavigate();
+  const path = useContext(PathContext);
   
   const onSubmit = async () => {
     //const token = captchaRef.current.getValue();
     //captchaRef.current.reset();
-    await axios.get(`http://127.0.0.1:8000/api/authentication/login?username=${username}&password=${password}&enterprise=${enterprise}`)
-    .then(function (response) {
 
-      if(response.status==200){
-        let data = response.data;
-        localStorage.setItem('username', data['username']);
-        localStorage.setItem('token', data['token']);
-        navigate('/'); // go to home
-      }
+    try{
+      await axios.get(`${path}api/authentication/login?username=${username}&password=${password}&enterprise=${enterprise}`)
+      .then(function (response) {
 
-    })
+        if(response.status===200){
+          let data = response.data;
+          localStorage.setItem('username', data['username']);
+          localStorage.setItem('token', data['token']);
+          navigate('/'); // go to home
+        }
 
+      });
+    }catch(err){
+      setError(true);
+    }
+    
     setUsername("");
     setPassword("");
     setEnterprise(false);
@@ -40,6 +48,9 @@ export default function Login() {
       <div className="text-center p-3 bg-white rounded">
         <img className="rounded" width="100px" height="100px" src="https://cdn-icons-png.flaticon.com/512/6681/6681204.png" />
       </div>
+      {error ? <div className="alert alert-danger" role="alert">
+        Nonexistent user
+      </div>:<></>}
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-3" >
           <label htmlFor="validationServer01" className="form-label">Username</label>

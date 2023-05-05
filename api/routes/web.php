@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserLTE;
+use App\Http\Controllers\ProductLTE;
+use App\Http\Controllers\ShoppingLTE;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +19,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::resource('/admin/users', UserLTE::class);
+Route::resource('/admin/products', ProductLTE::class);
+Route::resource('/admin/shopping', ShoppingLTE::class);

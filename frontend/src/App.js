@@ -1,5 +1,7 @@
 import './css/App.css';
 
+import { createContext } from "react";
+
 import Home from './pages/Home';
 import Login from './pages/Login';
 import DetailProduct from './pages/DetailProduct';
@@ -8,12 +10,17 @@ import CreateUserPage from './pages/CreateUserPage';
 import Error404 from './pages/Error404';
 
 import { Routes, Route, BrowserRouter } from "react-router-dom";
+import LoginUser from './pages/LoginUser';
+
+
+export const PathContext = createContext();
 
 
 function App() {
 
   return (
     <>
+    <PathContext.Provider value={'http://127.0.0.1:8000/'}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -21,9 +28,11 @@ function App() {
           <Route path="/detail-product" element={<DetailProduct />} />
           <Route path="/create-account" element={<CreateAccount />} />
           <Route path="/create-user" element={<CreateUserPage />} />
+          <Route path="/login-user" element={<LoginUser />} />
           <Route path="*" element={<Error404 />} />
         </Routes>
       </BrowserRouter>
+    </PathContext.Provider>
     </>
   );
 

@@ -194,7 +194,6 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
     ],
 
     /*
@@ -211,5 +210,10 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
+
+    'config' => [
+        'ip_laravel' => 'http://127.0.0.1:8000/',
+        'ip_react' => 'http://127.0.0.1:3000/'
+    ],
 
 ];

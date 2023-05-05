@@ -10,7 +10,7 @@ export default class CartForm extends React.Component{
     return(
       <div className="redirect-container">
         <div className="redirect-form text-center">
-          <h4>Hello!, to add in the<br/>cart, log in into your account</h4>
+          <h4>Hello!, log in into your account</h4>
           <div className="create-account-button">
             <Link style={{ textDecoration: 'none', textAlign: 'center', marginTop: '40px' }} to="/create-account/">
               <h6 className="create-account-font">Create account</h6>

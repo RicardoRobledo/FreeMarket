@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Shopping;
 use App\Models\Product;
+use Laravel\Sanctum\PersonalAccessToken;
+use Carbon\Carbon;
 
 class ShoppingController extends Controller
 {
@@ -20,9 +22,44 @@ class ShoppingController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $body = $request->all();
+        $bearer_token = $request->bearerToken();
+
+        if(!$bearer_token){
+            $data = json_encode([
+                'message' => 'token not given'
+            ]);
+
+            return response($data, 404);
+        }
+        
+        $token = PersonalAccessToken::findToken($bearer_token);
+
+        if(session()->get('authentication') && $token->exists())
+        {
+            $shopping = new Shopping;
+            $shopping->user_id = $body['user_id'];
+            $shopping->product_id = $body['product_id'];
+            $shopping->created_at = Carbon::now()->toDateTimeString();
+            $shopping->updated_at = Carbon::now()->toDateTimeString();
+            $shopping->save();
+
+            $data = json_encode([
+                'message' => 'success'
+            ]);
+
+            return response($data, 200);
+        }else{
+
+            $data = json_encode([
+                'message' => 'user not authenticated',
+            ]);
+
+            return response($data, 404);
+        }
+        
     }
 
     /**
@@ -38,6 +75,29 @@ class ShoppingController extends Controller
      */
     public function show(Request $request)
     {
+        $token = $request->bearerToken();
+
+        if(!$token)
+        {
+            $status = 404;
+            $data = json_encode([
+                'message' => 'token not given'
+            ]);
+
+            return response($data, $status);
+        }
+
+        $token = PersonalAccessToken::findToken($token);
+
+        if(!($token->exists()) || !(session()->get('authenticated'))){
+            $status = 404;
+            $data = json_encode([
+                'message' => 'user not authenticated'
+            ]);
+
+            return response($data, $status);
+        }
+
         $data_gotten = $request->query();
         $shopping = Shopping::where('user_id', $data_gotten['user_id'])->get();
         $status = null;
@@ -60,6 +120,43 @@ class ShoppingController extends Controller
     public function show2(Request $request)
     {
         $data_gotten = $request->query();
+        $single_shopping = null;
+        $status = null;
+        $data = null;
+
+        $token = $request->bearerToken();
+
+        if(!$token || !(session()->get('authenticated')))
+        {
+            $data = json_encode([
+                'message' => 'user not authenticated'
+            ]);
+            $status = 404;
+
+            return response($data, $status);
+        }else{
+            $token = PersonalAccessToken::findToken($token);
+        
+            if(!($token->exists())){
+
+                $data = json_encode([
+                    'message' => 'token not found',
+                ]);
+                $status = 404;
+
+                return response($data, $status);
+            }
+        }
+
+        $single_shopping = Shopping::where('id', $data_gotten['id'])->get();
+
+        $data = json_encode([
+            'message' => 'success',
+            'shopping' => $single_shopping,
+        ]);
+        $status = 200;
+
+        return response($data, $status);
     }
 
     /**
@@ -81,8 +178,53 @@ class ShoppingController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request, string $id)
     {
-        //
+        $token = $request->bearerToken();
+
+        if(!$token || !(session()->get('authenticated')))
+        {
+            $data = json_encode([
+                'message' => 'user not authenticated',
+            ]);
+            $status = 404;
+
+            return response($data, $status);
+        }else{
+            $token = PersonalAccessToken::findToken($token);
+        
+            if(!($token->exists())){
+
+                $data = json_encode([
+                    'message' => 'token not found',
+                ]);
+                $status = 404;
+
+                return response($data, $status);
+            }
+        }
+
+        $shopping = Shopping::where('id', $id);
+
+        if(!($shopping->exists()))
+        {
+            $data = json_encode([
+                'message' => 'shopping not found'
+            ]);
+
+            $status = 404;
+
+            return response($data, $status);
+        }
+
+        $data = json_encode([
+            'message' => 'success',
+            'shopping' => $shopping->get()->delete()
+        ]);
+
+        $status = 200;
+
+        return response($data, $status);
+
     }
 }
