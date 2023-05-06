@@ -20,6 +20,7 @@ function Home() {
   const getProducts = async () => {
     const response = await axios.get(`${path}api/products/retrieve-products`);
     setProducts(response.data);
+    //console.log(response.data);
   };
 
   return (
@@ -31,7 +32,7 @@ function Home() {
         <div className="row mt-4 mb-4">
           {products.map((product) => (
             <div key={product.id} className="col-md-3 mb-4">
-              <Card name={product.name} image={product.image} price={product.price} description={product.description}/>
+              <Card id={product.id} name={product.name} image={product.image} price={product.price} description={product.description}/>
             </div>
           ))}
         </div>

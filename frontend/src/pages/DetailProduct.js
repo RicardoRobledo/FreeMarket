@@ -19,7 +19,7 @@ export default function DetailProduct(){
           <div className="detail-product">
             <div className="detail-container">
               <img src={state.image} style={{width:'350px', height:'350px'}}/>
-              <DetailCard name={state.name} price={state.price}/>
+              <DetailCard id={state.id} name={state.name} price={state.price}/>
             </div>
             <hr/>
             <h3>Description</h3>

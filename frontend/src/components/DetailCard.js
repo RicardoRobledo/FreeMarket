@@ -1,18 +1,34 @@
 import '../css/DetailCard.css';
 
-import React from 'react';
+import React, {useContext} from 'react';
 import { useLocation } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { useForm } from "react-hook-form";
+import {PathContext} from '../App';
 
 
 export default function DetailCard(){
     let { state } = useLocation();
+    const { handleSubmit } = useForm();
     const navigate = useNavigate();
+    const path = useContext(PathContext);
 
-    const submit = async () => {
+    const onSubmit = async () => {
       if(!(localStorage.getItem('token') && localStorage.getItem('username'))){
         navigate('/login-user');
       }
+
+      await axios.post(`${path}api/shopping/create-shopping`, {
+        username: localStorage.getItem('username'),
+        product_id: state.id
+      },{
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}`}
+      }).then(
+        resp=>console.log(resp.data)
+      );
+
+      navigate('/user-shopping');
     };
 
     return(
@@ -20,7 +36,7 @@ export default function DetailCard(){
         <h6>{state.name}</h6>
         <h5>${state.price}</h5>
         <ul className="buttons-detail-container">
-          <form onSubmit={submit}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <button className="btn btn-success" type="submit">Buy</button>
           </form>
           {/*<li className="btn btn-success">Add in cart</li>*/}

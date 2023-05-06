@@ -33,6 +33,11 @@ export default function Menu() {
                 </li>
                 <li className="nav-item">
                   <h2>
+                    <Link to="/user-shopping" style={{ color: 'white', textDecoration: 'none', fontSize: '15px', marginRight:'20px'}}>Purchases</Link>
+                  </h2>
+                </li>
+                <li className="nav-item">
+                  <h2>
                     <Link to="/" style={{ color: 'white', textDecoration: 'none', fontSize: '15px' }} onClick={() => logout()}>Logout</Link>
                   </h2>
                 </li>

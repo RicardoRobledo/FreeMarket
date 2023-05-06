@@ -21,11 +21,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });*/
 
-Route::prefix('authentication')->group(function () {
-    Route::middleware('web')->get('login', [AuthenticationController::class, 'show']);
-    Route::middleware('web')->get('logout', [AuthenticationController::class, 'destroy']);
-    Route::middleware('web')->get('csrf-token', [AuthenticationController::class, 'show_token']);
-    Route::middleware('web')->post('register-user', [AuthenticationController::class, 'create']);
+Route::middleware('web')->prefix('authentication')->group(function () {
+    Route::get('login', [AuthenticationController::class, 'show']);
+    Route::get('logout', [AuthenticationController::class, 'destroy']);
+    Route::get('csrf-token', [AuthenticationController::class, 'show_token']);
+    Route::post('register-user', [AuthenticationController::class, 'create']);
 });
 
 Route::prefix('products')->group(function () {

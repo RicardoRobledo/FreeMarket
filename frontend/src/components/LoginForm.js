@@ -29,6 +29,7 @@ export default function Login() {
           let data = response.data;
           localStorage.setItem('username', data['username']);
           localStorage.setItem('token', data['token']);
+          console.log(data['session']);
           navigate('/'); // go to home
         }
 

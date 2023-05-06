@@ -23,8 +23,8 @@
         @foreach ($shopping as $s)
         <tr>
             <td>{{ $s->id }}</td>
-            <td>{{ $s->user->username }}</td>
-            <td>{{ $s->product->name }}</td>
+            <td>{{ $s->user_id }}</td>
+            <td>{{ $s->product_id }}</td>
             <td>
                 <a href="{{ route('shopping.edit', $s->id) }}" class="btn btn-sm btn-primary">Edit</a>
                 <form action="{{ route('shopping.destroy', $s->id) }}" method="POST" style="display: inline-block;">

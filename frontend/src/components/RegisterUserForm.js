@@ -51,9 +51,6 @@ export default function RegisterUserForm() {
     }catch(err){
       setError(true);
     }
-
-    console.log('vamos');
-
     //setForm(initialForm);
     //reset();
   }

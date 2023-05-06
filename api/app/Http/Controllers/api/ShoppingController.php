@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Shopping;
 use App\Models\Product;
+use App\Models\User;
 use Laravel\Sanctum\PersonalAccessToken;
 use Carbon\Carbon;
+
 
 class ShoppingController extends Controller
 {
@@ -37,10 +39,23 @@ class ShoppingController extends Controller
         
         $token = PersonalAccessToken::findToken($bearer_token);
 
-        if(session()->get('authentication') && $token->exists())
+        // use Illuminate\Support\Facades\Session;
+        // return session()->get('authentication');
+
+        if($token->exists())
         {
+            $user = User::where('username', $body['username']);
+
+            if(!($user->exists())){
+                $data = json_encode([
+                    'message' => 'user not found'
+                ]);
+    
+                return response($data, 404);
+            }
+
             $shopping = new Shopping;
-            $shopping->user_id = $body['user_id'];
+            $shopping->user_id = $user->first()->id;
             $shopping->product_id = $body['product_id'];
             $shopping->created_at = Carbon::now()->toDateTimeString();
             $shopping->updated_at = Carbon::now()->toDateTimeString();
@@ -89,7 +104,7 @@ class ShoppingController extends Controller
 
         $token = PersonalAccessToken::findToken($token);
 
-        if(!($token->exists()) || !(session()->get('authenticated'))){
+        if(!($token->exists())){
             $status = 404;
             $data = json_encode([
                 'message' => 'user not authenticated'
@@ -98,14 +113,25 @@ class ShoppingController extends Controller
             return response($data, $status);
         }
 
+        $user = User::where('username', $request->get('username'));
+        
+        if(!($user->exists())){
+            $status = 404;
+            $data = json_encode([
+                'message' => 'user not found'
+            ]);
+
+            return response($data, $status);
+        }
+
         $data_gotten = $request->query();
-        $shopping = Shopping::where('user_id', $data_gotten['user_id'])->get();
+        $shopping = Shopping::where('user_id', $user->first()->id)->get();
         $status = null;
         $data = null;
         $user_shopping = array();
 
         foreach($shopping as $e){
-            array_push($user_shopping, Product::where('id', $e->product_id)->first());
+            array_push($user_shopping, [$e->id, Product::where('id', $e->product_id)->first()]);
         }
  
         $status = 200;
@@ -126,7 +152,7 @@ class ShoppingController extends Controller
 
         $token = $request->bearerToken();
 
-        if(!$token || !(session()->get('authenticated')))
+        if(!$token)
         {
             $data = json_encode([
                 'message' => 'user not authenticated'
@@ -182,7 +208,7 @@ class ShoppingController extends Controller
     {
         $token = $request->bearerToken();
 
-        if(!$token || !(session()->get('authenticated')))
+        if(!$token)
         {
             $data = json_encode([
                 'message' => 'user not authenticated',
@@ -219,7 +245,7 @@ class ShoppingController extends Controller
 
         $data = json_encode([
             'message' => 'success',
-            'shopping' => $shopping->get()->delete()
+            'shopping' => $shopping->first()->delete()
         ]);
 
         $status = 200;
