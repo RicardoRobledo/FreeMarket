@@ -1,20 +1,21 @@
-import React, { useRef, useState, useContext } from 'react';
+import React, { useRef, useEffect, useState, useContext } from 'react';
 import { useForm } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
-import ReCAPTCHA from "react-google-recaptcha";
+import HCaptcha from '@hcaptcha/react-hcaptcha';
 import axios from 'axios';
 import {PathContext} from '../App';
 
 
 export default function Login() {
   const { register, reset, getValues, handleSubmit, watch, formState: { errors } } = useForm();
-  const captchaRef = useRef(null);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [enterprise, setEnterprise] = useState(false);
   const [error, setError] = useState(false);
   const navigate = useNavigate();
+  const [token, setToken] = useState(null);
+  const captchaRef = useRef(null);
   const path = useContext(PathContext);
   
   const onSubmit = async () => {
@@ -43,6 +44,19 @@ export default function Login() {
     setEnterprise(false);
     reset();
   }
+
+  useEffect(() => {
+    if (token)
+      console.log(`hCaptcha Token: ${token}`);
+  }, [token]);
+
+  const onLoad = () => {
+    // this reaches out to the hCaptcha JS API and runs the
+    // execute function on it. you can use other functions as
+    // documented here:
+    // https://docs.hcaptcha.com/configuration#jsapi
+    captchaRef.current.execute();
+  };
 
   return (
     <div className="container col-9 mt-5 bg-white p-3 rounded">
@@ -74,11 +88,12 @@ export default function Login() {
           <label className="form-check-label" htmlFor="exampleCheck1">Are you an enterprise?</label>
         </div>
         <div className="mb-3">
-          {/*<ReCAPTCHA
-            sitekey={process.env.REACT_APP_SITE_KEY}
-            ref={captchaRef}
-            onChange={on}
-          />*/}
+           {/*<HCaptcha
+        sitekey={process.env.REACT_APP_SITE_KEY}
+        onLoad={onLoad}
+        onVerify={setToken}
+        ref={captchaRef}
+  />*/}
         </div>
         <div className="text-center pt-3">
           <button type="submit" className="btn btn-primary">Log in</button>

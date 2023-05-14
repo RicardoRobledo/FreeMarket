@@ -12,8 +12,20 @@
             </div>
         @endif
 
-        <form method="GET" action="{{ route('home') }}">
+        <form method="POST" action="{{ route('login') }}">
             @csrf
+
+            <!------------ No sirve  :,v -------------->
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
+            <!----------------------------------------->
 
             <div>
                 <x-label for="email" value="{{ __('Email') }}" />
@@ -25,22 +37,20 @@
                 <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
             </div>
 
-            <div class="block mt-4">
-                <label for="remember_me" class="flex items-center">
-                    <x-checkbox id="remember_me" name="remember" />
-                    <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
-                </label>
-            </div>
 
             <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('register') }}">
-                    {{ __('Register') }}
-                </a>
+            @if (Route::has('register'))
+                            <a href="{{ route('register') }}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">You don't have an account</a>
+                        @endif
 
                 <x-button class="ml-4">
                     {{ __('Log in') }}
                 </x-button>
             </div>
+            <div class="flex items-center justify-end mt-4">
+                {!! app('captcha')->display(['add-js' => false]) !!}
+            </div>
         </form>
+        {!! app('captcha')->displayJs() !!}
     </x-authentication-card>
 </x-guest-layout>

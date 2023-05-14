@@ -1,10 +1,12 @@
 <?php
 
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsLTE;
 use App\Http\Controllers\ProductLTE;
 use App\Http\Controllers\ShoppingLTE;
-
+use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -18,10 +20,47 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-
 Route::get('/', function () {
     return view('auth.login');
-})->name('login');
+});
+
+Route::post('/login', function (Request $request) {
+    $credentials = $request->only('email', 'password');
+    
+    $user = User::where('email', $credentials['email'])->first();
+    if (!$user) {
+        return redirect()->route('login')->withErrors(['email' => 'Nonexistent user']);
+    }
+
+    if (Auth::attempt($credentials)) {
+        return redirect()->intended('/home');
+    } else {
+        return redirect()->route('login')->withErrors(['password' => 'Password does not match']);
+    }
+})->name('login-user');
+
+use Illuminate\Validation\Rule;
+
+Route::post('/register', function (Request $request) {
+    $validatedData = $request->validate([
+        'name' => ['required', 'string', 'max:255'],
+        'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')],
+        'password' => ['required', 'string', 'confirmed'],
+    ]);
+
+    $existingUser = User::where('email', $validatedData['email'])->first();
+    if ($existingUser) {
+        return redirect()->back()->withErrors(['email' => 'Email already registered']);
+    }
+    $user = User::create([
+        'name' => $validatedData['name'],
+        'email' => $validatedData['email'],
+        'password' => Hash::make($validatedData['password']),
+    ]);
+
+    Auth::login($user);
+    return redirect('/');
+})->name('register-user');
 
 Route::get('/register', function () {
     return view('auth.register');

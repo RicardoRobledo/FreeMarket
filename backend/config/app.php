@@ -17,6 +17,9 @@ return [
     */
 
     'name' => env('APP_NAME', 'Laravel'),
+    
+    'Buzz\LaravelHCaptcha\CaptchaServiceProvider',
+    'Captcha' => '\Buzz\LaravelHCaptcha\CaptchaFacade',
 
     /*
     |--------------------------------------------------------------------------
@@ -186,11 +189,5 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
-
-    
-    'config' => [
-        'ip_laravel' => 'http://127.0.0.1:8000/',
-        'ip_react' => 'http://127.0.0.1:3000/'
-    ],
 
 ];
