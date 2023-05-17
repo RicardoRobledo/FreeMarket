@@ -42,9 +42,7 @@
       </div>
       <div class="col-md-4">
         <label htmlFor="validationServer04" class="form-label">Image</label>
-        <textarea name="image" id="" cols="70" rows="10">
-            {{$product->image}}
-        </textarea>
+        <textarea name="image" id="" cols="70" rows="10">{{$product->image}}</textarea>
       </div>
       <div class="col-12 mt-5 text-center">
         <button class="btn btn-primary w-100" type="submit">Modify</button>

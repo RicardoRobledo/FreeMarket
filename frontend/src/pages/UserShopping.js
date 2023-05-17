@@ -29,7 +29,7 @@ export default function UserShopping() {
     /*<div key={Math.random()} className="col-md-3 mb-4">
           <ProductShopping id={product.id} name={product.name} price={product.price} image={product.image}/>
         </div>*/
-    //console.log(response.data['shopping']);
+    console.log(response.data);
     setProducts(response.data['shopping']);
   };
 

@@ -16,8 +16,10 @@ return new class extends Migration
     {
         Schema::create('shoppings', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class);
-            $table->foreignIdFor(Product::class);
+            $table->foreignId('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->foreignId('user_id')->references('id')->on('us')->onDelete('cascade');
+            //$table->foreignIdFor(User::class)->onDelete('cascade');
+            //$table->foreignIdFor(Product::class)->onDelete('cascade');
             $table->timestamps();
         });
     }
