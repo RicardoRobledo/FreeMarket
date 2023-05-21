@@ -17,18 +17,19 @@ export default function DetailCard(){
     const onSubmit = async () => {
       if(!(sessionStorage.getItem('token') && sessionStorage.getItem('username'))){
         navigate('/login-user');
+      }else{
+        await axios.post(`${path}api/shopping/create-shopping`, {
+          username: sessionStorage.getItem('username'),
+          product_id: state.id
+        },{
+          headers: { Authorization: `Bearer ${sessionStorage.getItem('token')}`}
+        }).then(
+          resp=>console.log(resp.data)
+        );
+  
+        navigate('/user-shopping');
       }
 
-      await axios.post(`${path}api/shopping/create-shopping`, {
-        username: sessionStorage.getItem('username'),
-        product_id: state.id
-      },{
-        headers: { Authorization: `Bearer ${sessionStorage.getItem('token')}`}
-      }).then(
-        resp=>console.log(resp.data)
-      );
-
-      navigate('/user-shopping');
     };
 
     return(
