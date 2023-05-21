@@ -28,6 +28,7 @@ This is an easy fullstack project of an ecommerce
 - axios
 - react-icons
 - Bootstrap
+- AdminLTE
 
 <br>
 
