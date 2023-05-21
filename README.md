@@ -29,6 +29,7 @@ This is an easy fullstack project of an ecommerce
 - react-icons
 - Bootstrap
 - AdminLTE
+- hcaptcha
 
 <br>
 
