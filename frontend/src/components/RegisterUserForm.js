@@ -30,7 +30,7 @@ export default function RegisterUserForm() {
   const onSubmit = async (e) => {
     //await axios.get('http://127.0.0.1:8000/sanctum/csrf-cookie', {withCredentials:true});
 
-    if(e.password!=e.confirm_password){
+    if(e.password!==e.confirm_password){
       setError('Password doest not match');
     }else{
       try{
