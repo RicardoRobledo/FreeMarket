@@ -1,0 +1,311 @@
+{
+	"info": {
+		"_postman_id": "8c0a19d5-3a34-4c46-b45e-f483ee59b5c3",
+		"name": "authentication",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "login",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/authentication/login?username=kyokofxv&password=123456789&enterprise=false",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"authentication",
+						"login"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "kyokofxv"
+						},
+						{
+							"key": "password",
+							"value": "123456789"
+						},
+						{
+							"key": "enterprise",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "logout",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "20|AOybwgQWHHby9HdHaYe1JepfecR88jkBioo4vNeC",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/authentication/logout?username=kyokofxv",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"authentication",
+						"logout"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "kyokofxv"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "register",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-CSRF-TOKEN",
+						"value": "GfnPK3g21yPKxd6mPiLDjIgPWoM21HNbYCyv47nA",
+						"type": "default",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "kyo",
+							"type": "default"
+						},
+						{
+							"key": "middle_name",
+							"value": "kusanagi",
+							"type": "default"
+						},
+						{
+							"key": "last_name",
+							"value": "kof",
+							"type": "default"
+						},
+						{
+							"key": "username",
+							"value": "dfdfgdfg",
+							"type": "default"
+						},
+						{
+							"key": "password",
+							"value": "123456789",
+							"type": "default"
+						},
+						{
+							"key": "email",
+							"value": "kirito@gmail.com",
+							"type": "default"
+						},
+						{
+							"key": "country",
+							"value": "Germany",
+							"type": "default"
+						},
+						{
+							"key": "city",
+							"value": "DDD",
+							"type": "default"
+						},
+						{
+							"key": "state",
+							"value": "FF",
+							"type": "default"
+						},
+						{
+							"key": "street",
+							"value": "GGG",
+							"type": "default"
+						},
+						{
+							"key": "neighborhood",
+							"value": "WEWEE",
+							"type": "default"
+						},
+						{
+							"key": "number",
+							"value": "46",
+							"type": "default"
+						},
+						{
+							"key": "postal_code",
+							"value": "34567",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/authentication/register/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"authentication",
+						"register",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "register",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "X-CSRF-TOKEN",
+						"value": "GfnPK3g21yPKxd6mPiLDjIgPWoM21HNbYCyv47nA",
+						"type": "default",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "kyo",
+							"type": "default"
+						},
+						{
+							"key": "middle_name",
+							"value": "kusanagi",
+							"type": "default"
+						},
+						{
+							"key": "last_name",
+							"value": "kof",
+							"type": "default"
+						},
+						{
+							"key": "username",
+							"value": "dfdfgdfg",
+							"type": "default"
+						},
+						{
+							"key": "email",
+							"value": "kirito@gmail.com",
+							"type": "default"
+						},
+						{
+							"key": "country",
+							"value": "Germany",
+							"type": "default"
+						},
+						{
+							"key": "city",
+							"value": "DDD",
+							"type": "default"
+						},
+						{
+							"key": "state",
+							"value": "FF",
+							"type": "default"
+						},
+						{
+							"key": "street",
+							"value": "GGG",
+							"type": "default"
+						},
+						{
+							"key": "neighborhood",
+							"value": "WEWEE",
+							"type": "default"
+						},
+						{
+							"key": "number",
+							"value": "46",
+							"type": "default"
+						},
+						{
+							"key": "postal_code",
+							"value": "34567",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/users/update-user/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"users",
+						"update-user",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "csrf-token",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/authentication/csrf-token/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"authentication",
+						"csrf-token",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

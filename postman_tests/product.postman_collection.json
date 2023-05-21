@@ -1,0 +1,65 @@
+{
+	"info": {
+		"_postman_id": "d4997691-a37a-4d3b-a29f-73a3a2ebae5c",
+		"name": "product",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "retrieve-products",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/products/retrieve-products/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"products",
+						"retrieve-products",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "retrieve-product",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/products/retrieve-product/?name=Fender Guitar",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"products",
+						"retrieve-product",
+						""
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Fender Guitar"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
