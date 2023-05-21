@@ -15,15 +15,15 @@ export default function DetailCard(){
     const path = useContext(PathContext);
 
     const onSubmit = async () => {
-      if(!(localStorage.getItem('token') && localStorage.getItem('username'))){
+      if(!(sessionStorage.getItem('token') && sessionStorage.getItem('username'))){
         navigate('/login-user');
       }
 
       await axios.post(`${path}api/shopping/create-shopping`, {
-        username: localStorage.getItem('username'),
+        username: sessionStorage.getItem('username'),
         product_id: state.id
       },{
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}`}
+        headers: { Authorization: `Bearer ${sessionStorage.getItem('token')}`}
       }).then(
         resp=>console.log(resp.data)
       );

@@ -16,19 +16,27 @@
         <input type="text"
           placeholder="Albert"
           value="{{$product->name}}"
-          class="form-control"
+          class="form-control is-valid"
           name="name"
+          regex="^([A-Z]{1}[a-z]*)(\s{1}([a-z]+)(\s{1}([0-9]+))*)*$"
         />
+        <div class="valid-feedback">
+          Looks good!
+        </div>
       </div>
       <div class="col-md-4">
         <label htmlFor="validationServer02">Price</label>
         <input
           placeholder="Smith"
           type="text"
-          class="form-control"
+          class="form-control is-valid"
+          regex="^([0-9]*\.{0,1}[0-9]*)$"
           name="price"
           value="{{$product->price}}"
         />
+        <div class="valid-feedback">
+          Looks good!
+        </div>
       </div>
       <div class="col-md-4">
         <label htmlFor="validationServer03" class="form-label">Description</label>
@@ -36,9 +44,13 @@
           placeholder="Becker"
           type="text"
           name="description"
-          class="form-control"
+          class="form-control is-valid"
           value="{{$product->description}}"
+          regex="^([A-Z]{1}[a-z]+)(\s{1}[a-z]+)*$"
         />
+        <div class="valid-feedback">
+          Looks good!
+        </div>
       </div>
       <div class="col-md-4">
         <label htmlFor="validationServer04" class="form-label">Image</label>

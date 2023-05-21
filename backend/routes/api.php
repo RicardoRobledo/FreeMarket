@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\ShoppingController;
 use App\Http\Controllers\api\ProductController;
 use App\Http\Controllers\api\AuthenticationController;
+use App\Http\Controllers\api\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +25,11 @@ Route::middleware('web')->prefix('authentication')->group(function () {
     Route::get('logout', [AuthenticationController::class, 'destroy']);
     Route::get('csrf-token', [AuthenticationController::class, 'show_token']);
     Route::post('register-user', [AuthenticationController::class, 'create']);
+});
+
+Route::middleware('web')->prefix('users')->group(function () {
+    Route::get('retrieve-user', [UserController::class, 'show']);
+    Route::put('update-user', [UserController::class, 'update']);
 });
 
 Route::prefix('products')->group(function () {

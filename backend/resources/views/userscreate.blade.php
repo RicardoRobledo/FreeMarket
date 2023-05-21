@@ -15,13 +15,10 @@
         <label htmlFor="validationServer01">Name</label>
         <input type="text"
           placeholder="Albert"
-          class="form-control is-valid"
+          class="form-control"
           name="name"
           pattern="^([A-Z][a-z]+)"
         />
-        <div class="valid-feedback">
-          Looks good!
-        </div>
       </div>
       <div class="col-md-4">
         <label htmlFor="validationServer02">Middle name</label>

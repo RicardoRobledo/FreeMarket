@@ -14,7 +14,7 @@ function ProductShopping({ id_s, id, name, image, price }) {
     const resp = await axios.delete(`${path}api/shopping/delete-shopping/${id_s}`,
       {
         headers:{
-          Authorization: `Bearer ${localStorage.getItem('token')}`
+          Authorization: `Bearer ${sessionStorage.getItem('token')}`
         }
       }).then(
         response=>console.log(response.data)

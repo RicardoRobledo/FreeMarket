@@ -28,8 +28,8 @@ export default function Login() {
 
         if(response.status===200){
           let data = response.data;
-          localStorage.setItem('username', data['username']);
-          localStorage.setItem('token', data['token']);
+          sessionStorage.setItem('username', data['username']);
+          sessionStorage.setItem('token', data['token']);
           console.log(data['session']);
           navigate('/'); // go to home
         }

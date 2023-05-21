@@ -6,12 +6,12 @@ import { FaShopify, FaCartPlus } from "react-icons/fa";
 export default function Menu() {
 
     //const showSearch = this.props.showSearch;
-    const [username, setUsername] = useState(localStorage.getItem('username'));
-    const [token, setToken] = useState(localStorage.getItem('token'));
-
+    const [username, setUsername] = useState(sessionStorage.getItem('username'));
+    const [token, setToken] = useState(sessionStorage.getItem('token'));
+    
     function logout(){
-      localStorage.removeItem('username');
-      localStorage.removeItem('token');
+      sessionStorage.removeItem('username');
+      sessionStorage.removeItem('token');
       setUsername('');
       setToken('');
     }
@@ -28,7 +28,8 @@ export default function Menu() {
               {username?(
                 <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                 <li className="nav-item">
-                  <h2 style={{ marginTop:'17px', color: 'yellow', textDecoration: 'none', fontSize: '15px', marginRight:'20px', fontFamily:'Verdana'}}>{username}
+                  <h2>
+                  <Link to="/user-profile" style={{ color: 'yellow', textDecoration: 'none', fontSize: '15px', marginRight:'20px'}}>{username}</Link>
                   </h2>
                 </li>
                 <li className="nav-item">

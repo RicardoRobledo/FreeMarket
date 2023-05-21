@@ -20,10 +20,10 @@ export default function UserShopping() {
 
   const getProducts = async () => {
     const response = await axios({
-      url:`${path}api/shopping/obtain-user-shopping?username=${localStorage.getItem('username')}`,
+      url:`${path}api/shopping/obtain-user-shopping?username=${sessionStorage.getItem('username')}`,
       method:'get',
       headers:{
-        Authorization: `Bearer ${localStorage.getItem('token')}`
+        Authorization: `Bearer ${sessionStorage.getItem('token')}`
       }
     });
     /*<div key={Math.random()} className="col-md-3 mb-4">
@@ -37,7 +37,7 @@ export default function UserShopping() {
     <Fragment>
       <Menu showSearch={false}/>
       {
-        localStorage.getItem('token') && localStorage.getItem('username')?(
+        sessionStorage.getItem('token') && sessionStorage.getItem('username')?(
           <div className="row m-4">
       <h1 className="text-center mb-4">Your purchases</h1>
       {products.map((product) => (

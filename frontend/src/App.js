@@ -8,6 +8,7 @@ import DetailProduct from './pages/DetailProduct';
 import CreateAccount from './pages/CreateAccount';
 import CreateUserPage from './pages/CreateUserPage';
 import UserShopping from './pages/UserShopping';
+import UserProfile from './pages/UserProfile';
 import Error404 from './pages/Error404';
 
 import { Routes, Route, BrowserRouter } from "react-router-dom";
@@ -31,6 +32,7 @@ function App() {
           <Route path="/create-user" element={<CreateUserPage />} />
           <Route path="/login-user" element={<LoginUser />} />
           <Route path="/user-shopping" element={<UserShopping />} />
+          <Route path="/user-profile" element={<UserProfile />} />
           <Route path="*" element={<Error404 />} />
         </Routes>
       </BrowserRouter>
