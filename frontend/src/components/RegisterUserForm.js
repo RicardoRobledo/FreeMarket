@@ -24,33 +24,39 @@ export default function RegisterUserForm() {
   const { register, reset, getValues, handleSubmit, watch, formState: { errors } } = useForm();
   const [form, setForm] = useState(initialForm);
   const navigate = useNavigate();
-  const [error, setError] = useState(false);
+  const [error, setError] = useState('');
   const path = useContext(PathContext);
 
-  const onSubmit = async () => {
+  const onSubmit = async (e) => {
     //await axios.get('http://127.0.0.1:8000/sanctum/csrf-cookie', {withCredentials:true});
-    
-    try{
-    await axios.post(`${path}api/authentication/register-user`, {
-      name: form.name,
-      middle_name: form.middle_name,
-      last_name: form.last_name,
-      username: form.username,
-      password: form.password,
-      email: form.email,
-      country: form.country,
-      city: form.city,
-      state: form.state,
-      street: form.street,
-      neighborhood: form.neighborhood,
-      number: form.number,
-      postal_code: form.postal_code,
-    });
 
-    navigate('/');
-    }catch(err){
-      setError(true);
+    if(e.password!=e.confirm_password){
+      setError('Password doest not match');
+    }else{
+      try{
+
+        await axios.post(`${path}api/authentication/register-user`, {
+          name: form.name,
+          middle_name: form.middle_name,
+          last_name: form.last_name,
+          username: form.username,
+          password: form.password,
+          email: form.email,
+          country: form.country,
+          city: form.city,
+          state: form.state,
+          street: form.street,
+          neighborhood: form.neighborhood,
+          number: form.number,
+          postal_code: form.postal_code,
+        });
+    
+        navigate('/login');
+        }catch(err){
+          setError('Email or username in use');
+        }
     }
+    
     //setForm(initialForm);
     //reset();
   }
@@ -72,7 +78,7 @@ export default function RegisterUserForm() {
           <h2 className="text-center">Type your data</h2>
         </div>
         {error ? <div className="alert alert-danger" role="alert">
-        Email or username in use
+        {error}
         </div>:<></>}
         <div className="col-md-4">
           <label htmlFor="validationServer01" className="form-label">Name</label>
