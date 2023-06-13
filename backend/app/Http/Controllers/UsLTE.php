@@ -30,26 +30,30 @@ class UsLTE extends Controller
      */
     public function store(Request $request)
     {
-        $body = $request->all();
+        
+        try{
+            $body = $request->all();
+            $user = new Us;
+            $user->name = $body['name'];
+            $user->middle_name = $body['middle_name'];
+            $user->last_name = $body['last_name'];
+            $user->country = $body['country'];
+            $user->username = $body['username'];
+            $user->city = $body['city'];
+            $user->state = $body['state'];
+            $user->street = $body['street'];
+            $user->number = $body['number'];
+            $user->password = Hash::make($body['password']);
+            $user->email = $body['email'];
+            $user->email_verified_at = now();
+            $user->postal_code = $body['postal_code'];
+            $user->neighborhood = $body['neighborhood'];
+            $user->save();
+            return redirect('/admin/users')->with('success', 'Succesful!');
+        }catch(\Throwable $th) {
+            return redirect('/admin/users')->with('error', 'Incorrect insert');
+        }
 
-        $user = new Us;
-        $user->name = $body['name'];
-        $user->middle_name = $body['middle_name'];
-        $user->last_name = $body['last_name'];
-        $user->country = $body['country'];
-        $user->username = $body['username'];
-        $user->city = $body['city'];
-        $user->state = $body['state'];
-        $user->street = $body['street'];
-        $user->number = $body['number'];
-        $user->password = Hash::make($body['password']);
-        $user->email = $body['email'];
-        $user->email_verified_at = now();
-        $user->postal_code = $body['postal_code'];
-        $user->neighborhood = $body['neighborhood'];
-        $user->save();
-
-        return redirect('/admin/users');
     }
 
     /**
@@ -76,23 +80,26 @@ class UsLTE extends Controller
     {
         $body = $request->all();
 
-        Us::where('id', $id)->update([
-            'name' => $body['name'],
-            'middle_name' => $body['middle_name'],
-            'last_name' => $body['last_name'],
-            'username' => $body['username'],
-            'password' => Hash::make($body['password']),
-            'email' => $body['email'],
-            'country' => $body['country'],
-            'city' => $body['city'],
-            'state' => $body['state'],
-            'street' => $body['street'],
-            'neighborhood' => $body['neighborhood'],
-            'number' => $body['number'],
-            'postal_code' => $body['postal_code']
-        ]); 
-        
-        return redirect('/admin/users');
+        try{
+            Us::where('id', $id)->update([
+                'name' => $body['name'],
+                'middle_name' => $body['middle_name'],
+                'last_name' => $body['last_name'],
+                'username' => $body['username'],
+                'password' => Hash::make($body['password']),
+                'email' => $body['email'],
+                'country' => $body['country'],
+                'city' => $body['city'],
+                'state' => $body['state'],
+                'street' => $body['street'],
+                'neighborhood' => $body['neighborhood'],
+                'number' => $body['number'],
+                'postal_code' => $body['postal_code']
+            ]); 
+            return redirect('/admin/users')->with('edited', 'Data modified');
+        }catch(\Throwable $th) {
+            return redirect('/admin/users')->with('error', 'Incorrect insert');
+        }
     }
 
     /**
@@ -101,6 +108,6 @@ class UsLTE extends Controller
     public function destroy(string $id)
     {
         Us::where('id', $id)->delete();
-        return redirect('/admin/users');
+        return redirect('/admin/users')->with('destroy', 'Data deleted');
     }
 }

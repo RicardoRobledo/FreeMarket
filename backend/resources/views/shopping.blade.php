@@ -4,10 +4,6 @@
 
 @section('content_header')
     <h1>Shopping</h1>
-    <form method="GET" action="{{ route('logout') }}">
-        @csrf
-        <button type="submit" class="btn btn-warning">Logout</button>
-    </form>
 @stop
 
 @section('content')
@@ -27,8 +23,18 @@
         @foreach ($shopping as $s)
         <tr>
             <td>{{ $s->id }}</td>
-            <td>{{ $s->user_id }}</td>
-            <td>{{ $s->product_id }}</td>
+        @foreach ($us as $usuario)
+            @if ($usuario->id == $s->user_id)
+                <td>{{ $usuario->name }}</td>
+            @endif
+        @endforeach
+
+        @foreach ($product as $producto)
+            @if ($producto->id == $s->product_id)
+                <td>{{ $producto->name }}</td>
+            @endif
+        @endforeach
+           
             <td>
                 <a href="{{ route('shopping.edit', $s->id) }}" class="btn btn-sm btn-primary">Edit</a>
                 <form action="{{ route('shopping.destroy', $s->id) }}" method="POST" style="display: inline-block;">

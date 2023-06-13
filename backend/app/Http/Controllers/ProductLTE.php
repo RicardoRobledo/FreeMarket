@@ -30,15 +30,18 @@ class ProductLTE extends Controller
     public function store(Request $request)
     {
         $body = $request->all();
-
-        $product = new Product;
-        $product->name = $body['name'];
-        $product->price = $body['price'];
-        $product->image = $body['image'];
-        $product->description = $body['description'];
-        $product->save();
-
-        return redirect('/admin/products');
+        
+        try{
+            $product = new Product;
+            $product->name = $body['name'];
+            $product->price = $body['price'];
+            $product->image = $body['image'];
+            $product->description = $body['description'];
+            $product->save();
+            return redirect('/admin/products')->with('success', 'Succesful!');
+        }catch(\Throwable $th) {
+            return redirect('/admin/products')->with('error', 'Incorrect insert');
+        }
     }
 
     /**
@@ -66,14 +69,17 @@ class ProductLTE extends Controller
     {
         $body = $request->all();
 
-        Product::where('id', $id)->update([
-            'name' => $body['name'],
-            'price' => $body['price'],
-            'image' => $body['image'],
-            'description' => $body['description']
-        ]);
-
-        return redirect('/admin/products');
+        try{
+            Product::where('id', $id)->update([
+                'name' => $body['name'],
+                'price' => $body['price'],
+                'image' => $body['image'],
+                'description' => $body['description']
+            ]);
+            return redirect('/admin/products')->with('edited', 'Data modified');
+        }catch(\Throwable $th) {
+            return redirect('/admin/products')->with('error', 'Incorrect insert');
+        }
     }
 
     /**
@@ -82,6 +88,6 @@ class ProductLTE extends Controller
     public function destroy(string $id)
     {
         Product::where('id', $id)->delete();
-        return redirect('/admin/products');
+        return redirect('/admin/products')->with('destroy', 'Data deleted');
     }
 }

@@ -17,9 +17,6 @@ return [
     */
 
     'name' => env('APP_NAME', 'Laravel'),
-    
-    'Buzz\LaravelHCaptcha\CaptchaServiceProvider',
-    'Captcha' => '\Buzz\LaravelHCaptcha\CaptchaFacade',
 
     /*
     |--------------------------------------------------------------------------

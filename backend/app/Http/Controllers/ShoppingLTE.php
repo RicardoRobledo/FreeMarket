@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Shopping;
+use App\Models\Product;
+use App\Models\Us;
 
 
 class ShoppingLTE extends Controller
@@ -13,8 +15,10 @@ class ShoppingLTE extends Controller
      */
     public function index()
     {
+        $us = Us::all();
+        $product = Product::all();
         $shopping = Shopping::with('us', 'product')->get();
-        return view('shopping', compact('shopping'));
+        return view('shopping',['us'=>$us,'product'=>$product] ,compact('shopping'));
     }
 
     /**
@@ -22,7 +26,10 @@ class ShoppingLTE extends Controller
      */
     public function create()
     {
-        return view('shoppingcreate');
+        $us = Us::all();
+        $product = Product::all();
+
+        return view('shoppingcreate', ['us'=>$us,'product'=>$product]);
     }
 
     /**
@@ -54,8 +61,11 @@ class ShoppingLTE extends Controller
     public function edit(string $id)
     {
         $shopping = Shopping::where('id', $id)->first();
+        $us = Us::all();
+        $product = Product::all();
+        $shopping = Shopping::where('id', $id)->first();
 
-        return view('shoppingedit', compact('shopping'));
+        return view('shoppingedit',['us'=>$us,'product'=>$product] ,compact('shopping'));
     }
 
     /**
