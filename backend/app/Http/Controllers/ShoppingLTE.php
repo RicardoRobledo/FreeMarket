@@ -39,12 +39,15 @@ class ShoppingLTE extends Controller
     {
         $body = $request->all();
 
-        $shopping = new Shopping;
-        $shopping->user_id = $body['user_id'];
-        $shopping->product_id = $body['product_id'];
-        $shopping->save();
-
-        return redirect('/admin/shopping');
+        try{
+            $shopping = new Shopping;
+            $shopping->user_id = $body['user_id'];
+            $shopping->product_id = $body['product_id'];
+            $shopping->save();
+            return redirect('/admin/shopping')->with('success', 'Succesful!');
+        }catch(\Throwable $th) {
+            return redirect('/admin/shopping')->with('error', 'Incorrect insert');
+        }
     }
 
     /**
@@ -75,12 +78,15 @@ class ShoppingLTE extends Controller
     {
         $body = $request->all();
 
-        Shopping::where('id', $id)->update([
-            'user_id' => $body['user_id'],
-            'product_id' => $body['product_id']
-        ]);
-
-        return redirect('/admin/shopping');
+        try{
+            Shopping::where('id', $id)->update([
+                'user_id' => $body['user_id'],
+                'product_id' => $body['product_id']
+            ]);
+            return redirect('/admin/shopping')->with('edited', 'Data modified');
+        }catch(\Throwable $th) {
+            return redirect('/admin/shopping')->with('error', 'Incorrect insert');
+        }
     }
 
     /**
@@ -89,6 +95,6 @@ class ShoppingLTE extends Controller
     public function destroy(string $id)
     {
         Shopping::where('id', $id)->delete();
-        return redirect('/admin/shopping');
+        return redirect('/admin/shopping')->with('destroy', 'Data deleted');
     }
 }

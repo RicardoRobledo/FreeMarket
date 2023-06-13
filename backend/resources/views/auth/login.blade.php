@@ -44,7 +44,11 @@
                                         {{ __('Log in') }}
                                     </button>
                                 </div>
+                                <div class="flex items-center justify-end mt-4">
+                                    {!! app('captcha')->display(['add-js' => false]) !!}
+                                </div>
                             </form>
+                            {!! app('captcha')->displayJs() !!}
                         </div>
                     </div>
                 </div>
